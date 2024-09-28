@@ -7,9 +7,26 @@
 #include "yolo_utils.hpp"
 #include "image_utils.hpp"
 
+#include "operator/operators.hpp"
+#include "operator/operator_registry.hpp"
+#include "device/device.hpp"
+
+#ifdef USE_HIP
+#include "device/device_hip.hpp"
+#include <hip/hip_runtime.h>
+#endif // USE_HIP
+
+#include "parser/npy_parser.hpp"
+
 int main()
 {
-    Session session("../sample/yolov8n.onnx");
+    SessionConfig config;
+#ifdef USE_HIP
+    Device *device = new HipDevice(0);
+    config.device = device;
+#endif
+
+    Session session("../sample/yolov8n.onnx", config);
     Image image("../sample/people1.jpg");
     image.resize_and_pad(640, 640);
     std::unordered_map<std::string, Tensor> inputs;

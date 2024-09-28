@@ -242,7 +242,8 @@ Tensor Image::to_tensor()
     std::vector<size_t> tensor_dims = {static_cast<size_t>(1), static_cast<size_t>(channels), static_cast<size_t>(height), static_cast<size_t>(width)};
     size_t total_elements = tensor_dims[0] * tensor_dims[1] * tensor_dims[2] * tensor_dims[3];
 
-    float *tensor_data = new float[total_elements];
+    // float *tensor_data = new float[total_elements];
+    std::vector<float> tensor_data(total_elements);
 
     for (int y = 0; y < height; ++y)
     {
@@ -258,8 +259,7 @@ Tensor Image::to_tensor()
         }
     }
 
-    Tensor tensor(TensorDataType::FLOAT32, tensor_dims);
-    tensor.setDataPointer(tensor_data, tensor_dims);
+    Tensor tensor(TensorDataType::FLOAT32, tensor_dims, tensor_data);
 
     return tensor;
 }
