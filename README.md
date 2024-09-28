@@ -32,6 +32,16 @@ cmake --build .
 ./yolov8
 ```
 
+### HIP Backend
+You can give `-DUSE_HIP=on` flag to the cmake to use HIP Backend for GPU inference.
+
+```bash
+mkdir build && cd build
+cmake -G Ninja .. -DUSE_HIP=on
+cmake --build .
+./yolov8
+```
+
 ### Full Test
 This repo contains gtests and related data. If you want to run the test, you should clone the npy and onnx files too. After build, just run 
 
