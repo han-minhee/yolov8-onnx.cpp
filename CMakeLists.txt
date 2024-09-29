@@ -19,7 +19,9 @@ if(USE_HIP)
 endif()
 
 # include
+include_directories(external/stb)
 include_directories(include/)
+
 
 add_subdirectory(external/onnx_cpp_lib)
 
